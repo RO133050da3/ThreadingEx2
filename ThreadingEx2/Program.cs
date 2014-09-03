@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace FindSmallest
 {
@@ -28,16 +30,19 @@ namespace FindSmallest
                     smallestSoFar = number;
                 }
             }
+            //return smallestSoFar;
+            Console.WriteLine("\t" + String.Join(", ", numbers) + "\n -> " + smallestSoFar);
             return smallestSoFar;
         }
 
         static void Main()
         {
-            foreach (int[] data in Data)
+            foreach (int[] d in Data)
             {
-                int smallest = FindSmallest(data);
-                Console.WriteLine("\t" + String.Join(", ", data) + "\n-> " + smallest);
+                Thread thread = new Thread(() => FindSmallest(d));
+                thread.Start();
             }
+            
         }
     }
 }
