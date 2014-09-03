@@ -15,6 +15,8 @@ namespace FindSmallest
             new[]{1, 22,1,9,-3, 5}
         };
 
+        private static List<int> smallestOfAllInts = new List<int>();
+
         private static int FindSmallest(int[] numbers)
         {
             if (numbers.Length < 1)
@@ -39,10 +41,17 @@ namespace FindSmallest
         {
             foreach (int[] d in Data)
             {
-                Thread thread = new Thread(() => FindSmallest(d));
+                Thread thread = new Thread(() =>
+                {
+                    smallestOfAllInts.Add(FindSmallest(d));
+                });
                 thread.Start();
             }
-            
+
+            Console.ReadKey();
+
+            FindSmallest(smallestOfAllInts.ToArray());
+
         }
     }
 }
